@@ -1,48 +1,46 @@
-<?php
-    function get_courses()
-    {
-    global $db;
-    $query='SELECT * FROM courses ORDER BY CourseId';
-        $statement=$db->prepare($query);
+<?php 
+
+    function get_courses() {
+        global $db;
+        $query = 'SELECT * FROM courses ORDER BY courseID';
+        $statement = $db->prepare($query);
         $statement->execute();
-        $courses=$statement->fetchAll();
-        $statement-> closeCursor();
+        $courses = $statement->fetchAll();
+        $statement->closeCursor();
         return $courses;
     }
 
-    function get_course_name($course_id)
-    {
-        if(!$course_id)
-        {
+    function get_course_name($course_id) {
+        if (!$course_id) {
             return "All Courses";
         }
         global $db;
-        $query='SELECT * FROM courses WHERE CourseId=:course_id';
-        $statement=$db->prepare($query);
-        $statement->bindValue(':course_id',$course_id);
+        $query = 'SELECT * FROM courses WHERE courseID = :course_id';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':course_id', $course_id);
         $statement->execute();
-        $course=$statement->fetch();
-        $statement-> closeCursor();
-        $course_name=$course['courseName'];
+        $course = $statement->fetch();
+        $statement->closeCursor();
+        $course_name = $course['courseName'];
         return $course_name;
     }
 
-    function delete_course($course_id)
-    {
+    function delete_course($course_id) {
         global $db;
-        $query='DELETE * FROM courses WHERE CourseId= :course_id';
-        $statement= $db ->prepare($query);
-        $statement->bindValue(':course_id',$course_id);
+        $query = 'DELETE FROM courses WHERE courseID = :course_id';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':course_id', $course_id);
         $statement->execute();
-        $statement-> closeCursor();
+        $statement->closeCursor();
     }
 
-    function add_course($course_name)
-    {
+    function add_course($course_name) {
         global $db;
-        $query='INSERT into courses(courseName) values (:courseName)';
-        $statement=$db->prepare($query);
-        $statement->bindValue(':courseName',$course_name);
+        $query = 'INSERT INTO courses (courseName)
+              VALUES
+                 (:courseName)';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':courseName', $course_name);
         $statement->execute();
-        $statement-> closeCursor();
+        $statement->closeCursor();
     }
