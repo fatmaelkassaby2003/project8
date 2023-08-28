@@ -10,14 +10,14 @@
     $course_id = filter_input(INPUT_POST, 'course_id', FILTER_VALIDATE_INT);
     if (!$course_id) {
         $course_id = filter_input(INPUT_GET, 'course_id', FILTER_VALIDATE_INT);
-        // an assignment of NULL or FALSE is ok here
+        
     }
 
     $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
     if (!$action) {
         $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
         if (!$action) {
-            $action = 'list_assignments'; // assigning default value if NULL or FALSE
+            $action = 'list_assignments'; 
         }
     }
 
